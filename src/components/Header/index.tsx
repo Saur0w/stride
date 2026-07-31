@@ -23,7 +23,7 @@ export default function Header() {
         });
 
         gsap.from(logoSplit.chars, {
-            delay: 5,
+            delay: 7,
             yPercent: 110,
             duration: 1,
             ease: "power4.out",
@@ -40,7 +40,7 @@ export default function Header() {
         });
 
         gsap.from(navSplit.words, {
-            delay: 5.5,
+            delay: 7.5,
             yPercent: -110,
             duration: 1,
             ease: "power4.out",
@@ -53,7 +53,7 @@ export default function Header() {
         });
 
         gsap.from(seasonSplit.words, {
-            delay: 5.5,
+            delay: 7.5,
             yPercent: 110,
             duration: 1,
             ease: "power4.out",

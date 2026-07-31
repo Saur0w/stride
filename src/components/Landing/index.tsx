@@ -41,11 +41,13 @@ export default function Landing() {
 
         tl.fromTo(imageWrapperRef.current, {
             yPercent: 100,
+            opacity: 0
         }, {
             yPercent: 0,
+            opacity: 1,
             duration: 1.6,
             ease: "power4.out",
-        }, 0);
+        }, "-=0.5");
 
         tl.fromTo(imageWrapperRef.current, {
             clipPath: "inset(36% 40% 36% 40%)",
@@ -170,7 +172,7 @@ export default function Landing() {
 
                 <div
                     className={styles.featureBlock}
-                    ref={(el) => { if (el) featureBlocksRef.current[1] = el; }} 
+                    ref={(el) => { if (el) featureBlocksRef.current[1] = el; }}
                 >
                     <h3>EXCLUSIVITY</h3>
                     <p>
