@@ -16,8 +16,10 @@ export default function Landing() {
     const paraRef = useRef<HTMLParagraphElement>(null);
     const paraWrapperRef = useRef<HTMLDivElement>(null);
     const locationRef = useRef<HTMLDivElement>(null);
-    const featuredBlockRef = useRef<HTMLDivElement>(null);
+    const featureBlocksRef = useRef<HTMLDivElement[]>([]);
     const yearDisplayRef = useRef<HTMLDivElement>(null);
+    const imageWrapperRef = useRef<HTMLDivElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
 
     const currentYear = new Date().getFullYear().toString();
     const century = currentYear.slice(0, 2);
@@ -27,6 +29,8 @@ export default function Landing() {
     useGSAP(() => {
         if (!landingRef.current) return;
 
+        gsap.set(imgRef.current, { transformOrigin: "50% 50%" });
+
         const tl = gsap.timeline({
             delay: 5.2,
             defaults: {
@@ -34,6 +38,30 @@ export default function Landing() {
                 duration: 1.1
             }
         });
+
+        tl.fromTo(imageWrapperRef.current, {
+            yPercent: 100,
+        }, {
+            yPercent: 0,
+            duration: 1.6,
+            ease: "power4.out",
+        }, 0);
+
+        tl.fromTo(imageWrapperRef.current, {
+            clipPath: "inset(36% 40% 36% 40%)",
+        }, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.3,
+            ease: "power3.inOut",
+        }, "-=0.6")
+            .fromTo(imgRef.current, {
+                scale: 0.6,
+            }, {
+                scale: 1,
+                duration: 1.3,
+                ease: "power3.inOut",
+            }, "<");
+
 
         SplitText.create(paraRef.current!, {
             type: "lines",
@@ -57,7 +85,7 @@ export default function Landing() {
             ease: "power3.out",
         }, "-=0.7")
 
-            .from(featuredBlockRef.current, {
+            .from(featureBlocksRef.current, {
                 y: 35,
                 autoAlpha: 0,
                 duration: 1,
@@ -74,12 +102,8 @@ export default function Landing() {
 
         if (paraWrapperRef.current) {
             gsap.fromTo(paraWrapperRef.current,
-                {
-                    yPercent: 40
-                },
-                {
-                    yPercent: -40, ease: "none"
-                });
+                { yPercent: 40 },
+                { yPercent: -40, ease: "none" });
         }
 
 
@@ -87,13 +111,14 @@ export default function Landing() {
 
     return (
         <section className={styles.landing} ref={landingRef}>
-            <div className={styles.imageWrapper}>
+            <div className={styles.imageWrapper} ref={imageWrapperRef}>
                 <Image
                     src="/images/main.jpg"
                     alt="Stride Hero Background"
                     fill
                     priority
                     unoptimized
+                    ref={imgRef}
                 />
                 <div className={styles.overlay} />
             </div>
@@ -133,14 +158,20 @@ export default function Landing() {
                     </div>
                 </div>
 
-                <div className={styles.featureBlock} ref={featuredBlockRef}>
+                <div
+                    className={styles.featureBlock}
+                    ref={(el) => { if (el) featureBlocksRef.current[0] = el; }}
+                >
                     <h3>DESIRE</h3>
                     <p>
                         SPARK DESIRE WITH STILETTOS THAT EXUDE CONFIDENCE AND ALLURE IN EVERY STEP
                     </p>
                 </div>
 
-                <div className={styles.featureBlock} ref={featuredBlockRef}>
+                <div
+                    className={styles.featureBlock}
+                    ref={(el) => { if (el) featureBlocksRef.current[1] = el; }} 
+                >
                     <h3>EXCLUSIVITY</h3>
                     <p>
                         UNVEIL EXCLUSIVITY, TAILORED FOR WOMEN WHO SEEK RARE ELEGANCE IN EVERY STEP.
