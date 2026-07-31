@@ -34,9 +34,8 @@
   .content {
     position: absolute;
     left: 30%;
-    top: 40%;
+    top: 45%;
     z-index: 3;
-
     color: #FDEBDD;
     max-width: 237px;
     width: 100%;
@@ -53,6 +52,13 @@
       text-align: justify;
       text-transform: uppercase;
     }
+  }
+
+  .textLine {
+    display: block !important;
+    width: 100%;
+    text-align: justify;
+    text-align-last: justify;
   }
 
   .footer {

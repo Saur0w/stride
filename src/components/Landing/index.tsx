@@ -2,15 +2,50 @@
 
 import styles from "./style.module.scss";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText, useGSAP);
 
 const para = "STRIDE invites her into a realm of luxurious desires, where each stiletto is a meticulously crafted masterpiece, telling stories of sophistication and exclusivity. Every step she takes embodies a fusion of her aspirations and the luxury that defines the essence of STRIDE.";
 
 export default function Landing() {
+    const landingRef = useRef<HTMLDivElement>(null);
     const currentYear = new Date().getFullYear().toString();
     const century = currentYear.slice(0, 2);
     const decade = currentYear.slice(2);
+    const paraRef = useRef<HTMLParagraphElement>(null);
+    const paraWrapperRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        SplitText.create(paraRef.current!, {
+            type: "lines",
+            mask: "lines",
+            linesClass: styles.textLine,
+            autoSplit: true,
+            onSplit: (self) => {
+                return gsap.from(self.lines, {
+                    delay: 5.5,
+                    yPercent: -110,
+                    duration: 1,
+                    ease: "power4.out",
+                    stagger: 0.045,
+                });
+            }
+        });
+
+        gsap.fromTo(paraWrapperRef.current, {
+            yPercent: 40
+        },
+            {
+                yPercent: -40, ease: "none"
+        })
+    }, { scope: landingRef });
+
     return (
-        <section className={styles.landing}>
+        <section className={styles.landing} ref={landingRef}>
             <div className={styles.imageWrapper}>
                 <Image
                     src="/images/main.jpg"
@@ -22,8 +57,8 @@ export default function Landing() {
                 <div className={styles.overlay} />
             </div>
 
-            <div className={styles.content}>
-                <p className={styles.text}>
+            <div className={styles.content} ref={paraWrapperRef}>
+                <p className={styles.text} ref={paraRef}>
                     {para}
                 </p>
             </div>
