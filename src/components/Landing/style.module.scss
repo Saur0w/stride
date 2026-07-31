@@ -1,0 +1,63 @@
+.landing {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #111;
+
+  .imageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    will-change: transform;
+
+    img {
+      object-fit: cover;
+      object-position: center;
+
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 2;
+    }
+  }
+
+
+  .content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #FDEBDD;
+    padding: 0 1.5rem;
+
+    .title {
+      font-family: "Le Murmure", display, serif;
+      font-size: clamp(4rem, 16vw, 240px);
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: clamp(0.85rem, 1.2vw, 1.15rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+      opacity: 0.9;
+      max-width: 480px;
+    }
+  }
+}
