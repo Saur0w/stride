@@ -13,16 +13,11 @@
   box-sizing: border-box;
 }
 
-.logoWrapper {
-  display: flex;
-  align-items: flex-start;
-}
-
 .logo {
   font-family: "Le Murmure", serif, system-ui;
   font-size: clamp(5rem, 16vw, 210px);
   font-weight: 600;
-  line-height: 0.82;
+  line-height: 1;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   color: #FDEBDD;
@@ -38,6 +33,20 @@
     margin-top: 0.1em;
     line-height: 1;
   }
+}
+
+.logoWrapper {
+  overflow: visible;
+}
+
+.logoMask {
+  display: inline-block !important;
+  overflow: hidden;
+  line-height: 1.05;
+  padding: 0.08em 0.05em 0.22em 0.05em;
+  margin: -0.08em -0.05em -0.22em -0.05em;
+
+  vertical-align: top;
 }
 
 .rightCol {
