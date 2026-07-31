@@ -8,6 +8,7 @@ const leMurmure = localFont({
 });
 import "./globals.css";
 import React from "react";
+import Header from "@/components/Header";
 
 
 export const metadata: Metadata = {
@@ -22,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={leMurmure.variable}>
-      <body>{children}</body>
+      <body>
+      <Header />
+      {children}
+      </body>
     </html>
   );
 }

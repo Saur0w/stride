@@ -3,7 +3,12 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
 
+const para = "STRIDE invites her into a realm of luxurious desires, where each stiletto is a meticulously crafted masterpiece, telling stories of sophistication and exclusivity. Every step she takes embodies a fusion of her aspirations and the luxury that defines the essence of STRIDE.";
+
 export default function Landing() {
+    const currentYear = new Date().getFullYear().toString();
+    const century = currentYear.slice(0, 2);
+    const decade = currentYear.slice(2);
     return (
         <section className={styles.landing}>
             <div className={styles.imageWrapper}>
@@ -12,19 +17,68 @@ export default function Landing() {
                     alt="Stride Hero Background"
                     fill
                     priority
-                    sizes="100vw"
                     unoptimized
                 />
                 <div className={styles.overlay} />
             </div>
 
-            {/* Layered Content in Front */}
             <div className={styles.content}>
-                <h1 className={styles.title}>STRIDE</h1>
-                <p className={styles.subtitle}>
-                    Invites her into a realm of luxurious footwear
+                <p className={styles.text}>
+                    {para}
                 </p>
             </div>
+
+            <footer className={styles.footer}>
+                <div className={styles.locationBox}>
+                    <div className={styles.barcode}>
+                        <svg width="123" height="30" viewBox="0 0 123 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                            <mask id="mask0_1_30" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="123" height="30">
+                                <rect width="123" height="29.1649" fill="url(#pattern0_1_30)"/>
+                            </mask>
+                            <g mask="url(#mask0_1_30)">
+                                <rect x="-17.752" y="-16.4844" width="180.062" height="74.8144" fill="#FDEBDD"/>
+                            </g>
+                            <defs>
+                                <pattern id="pattern0_1_30" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                    <use xlinkHref="#image0_1_30" transform="scale(0.0103093 0.0434783)"/>
+                                </pattern>
+                                <image id="image0_1_30" width="97" height="23" preserveAspectRatio="none" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGEAAAAXCAYAAAAbfSF/AAACA0lEQVRoBe1aO2tVQRA++QfapdPYpdDGIpVgIJDSEPBRSJr4JA8kmEoCKTTzba4QUvgHrGxUAhZ53OzsJU1IbOxs0urdWSGp0lgcmT33ylG4ckUsxDlwYM/O7Oxj+PY7s7MFJ+xwwn0f3SQLDlhQ6uvbuBYEW0VRFJzco1x/vHbGR4yHSItB8JoFH7M80nKQ1Sss2MzfQk99e2WEP9P5yp6bruygyRG3fcRUpYevnNAIQi9YcOITXQ6CZyoLQh9CpA0t+0Qvm5EusOANRzzWMeT2kcay/URXu2MNyS1pXSV3EyHiocpYcBiErrO4aZ2zyvUJQuutL2641cZFbecFN8qyHGDBNkd6wNFNdG2zuNlqPquDIblRFveksoEjFvdKy5zwtjZv1X+3++n5uc4472T9iN2sK1hjwak2qjvhfdUJynrnPmFB6/dO6OzvOKHVbgxpu5BwtzPAv+IEXZDvCxVpWfvM/ekC9umEZmxcynNPuNXLCV7cfNaR/pwQBHN1J/hE98wJv0CCOeEPtyNDgu6DPTjBtiPbjorMa8YJRsxGzPZ3tDJinGCcYJygEbMhwZBgSDAkoLRjixxE2tmRcYId4OlxiiHBkGBIMCTkzJrFCRYnGCdYnGBxwj+cY07YrxLZP962+K8S/UI3eyX6OxFwyX0m+lkwU88ndC88hJ9uW3wD+XrHlkVUORUAAAAASUVORK5CYII="/>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <div className={styles.addressCard}>
+                        <div className={styles.cardHeader}>
+                            <span>ENCHANTÉ STRIDE</span>
+                            <span className={styles.tag}>/24</span>
+                        </div>
+                        <p>15 RUE DE LA MODE, HAUTE MARAIS</p>
+                        <p>75001 PARIS, FRANCE</p>
+                    </div>
+                </div>
+
+                <div className={styles.featureBlock}>
+                    <h3>DESIRE</h3>
+                    <p>
+                        SPARK DESIRE WITH STILETTOS THAT EXUDE CONFIDENCE AND ALLURE IN EVERY STEP
+                    </p>
+                </div>
+
+                <div className={styles.featureBlock}>
+                    <h3>EXCLUSIVITY</h3>
+                    <p>
+                        UNVEIL EXCLUSIVITY, TAILORED FOR WOMEN WHO SEEK RARE ELEGANCE IN EVERY STEP.
+                    </p>
+                </div>
+
+                <div className={styles.yearDisplay}>
+                    <span className={styles.century}>{century}</span>
+                    <div className={styles.decade}>
+                        <span className={styles.slash}>/</span>
+                        <span className={styles.digits}>{decade}</span>
+                    </div>
+                </div>
+            </footer>
         </section>
     );
 }

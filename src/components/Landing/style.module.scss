@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: #111;
+  background-color: #FDEBDD;
 
   .imageWrapper {
     position: absolute;
@@ -25,39 +25,155 @@
     .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.22);
       z-index: 2;
     }
   }
 
 
   .content {
-    position: relative;
+    position: absolute;
+    left: 30%;
+    top: 40%;
     z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+
     color: #FDEBDD;
-    padding: 0 1.5rem;
+    max-width: 237px;
+    width: 100%;
+    height: 247px;
 
-    .title {
-      font-family: "Le Murmure", display, serif;
-      font-size: clamp(4rem, 16vw, 240px);
-      font-weight: 600;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    .subtitle {
-      font-size: clamp(0.85rem, 1.2vw, 1.15rem);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .text {
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
       margin-top: 1.5rem;
       opacity: 0.9;
       max-width: 480px;
+      font-family: "PP Neue Montreal", serif;
+      text-align: justify;
+      text-transform: uppercase;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1.8rem 2.5rem;
+    box-sizing: border-box;
+    .locationBox {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .barcode {
+        width: 110px;
+        height: 26px;
+        opacity: 0.9;
+      }
+
+      .addressCard {
+        border: 1px solid rgba(253, 235, 221, 0.7);
+        padding: 0.4rem 0.6rem;
+        width: 220px;
+        font-family: "PP Neue Montreal", serif;
+        font-size: 0.62rem;
+        line-height: 1.35;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        background: transparent;
+        color: #FDEBDD;
+
+        .cardHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid rgba(253, 235, 221, 0.4);
+          padding-bottom: 0.25rem;
+          margin-bottom: 0.35rem;
+          font-weight: 600;
+
+          .tag {
+            font-family: "PP Neue Montreal", serif;
+            font-size: 0.6rem;
+            opacity: 0.8;
+          }
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .featureBlock {
+      max-width: 210px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      h3 {
+        font-family: "Le Murmure", serif, system-ui;
+        font-size: 1.75rem;
+        font-weight: 500;
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        margin: 0;
+        color: #FDEBDD;
+      }
+
+      p {
+        font-family: "PP Neue Montreal", serif, system-ui;
+        font-size: 0.62rem;
+        line-height: 1.25;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        opacity: 0.85;
+        margin: 0;
+        color: #FDEBDD;
+      }
+    }
+
+    .yearDisplay {
+      font-family: "Bigilla", serif, system-ui;
+      font-size: clamp(3.8rem, 6.5vw, 6.2rem);
+      font-weight: 400;
+      line-height: 0.8;
+      letter-spacing: 0.01em;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      color: #FDEBDD;
+      user-select: none;
+
+      .century {
+        display: block;
+      }
+
+      .decade {
+        display: flex;
+        align-items: baseline;
+        justify-content: flex-end;
+      }
+
+      .slash {
+        font-weight: 300;
+        font-size: 0.95em;
+        margin-right: 0.1em;
+        transform: translateY(-0.08em) scaleY(1.15);
+        transform-origin: bottom right;
+        opacity: 0.95;
+      }
+
+      .digits {
+        display: inline-block;
+      }
     }
   }
 }
