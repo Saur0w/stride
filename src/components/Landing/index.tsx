@@ -13,21 +13,35 @@ const para = "STRIDE invites her into a realm of luxurious desires, where each s
 
 export default function Landing() {
     const landingRef = useRef<HTMLDivElement>(null);
+    const paraRef = useRef<HTMLParagraphElement>(null);
+    const paraWrapperRef = useRef<HTMLDivElement>(null);
+    const locationRef = useRef<HTMLDivElement>(null);
+    const featuredBlockRef = useRef<HTMLDivElement>(null);
+    const yearDisplayRef = useRef<HTMLDivElement>(null);
+
     const currentYear = new Date().getFullYear().toString();
     const century = currentYear.slice(0, 2);
     const decade = currentYear.slice(2);
-    const paraRef = useRef<HTMLParagraphElement>(null);
-    const paraWrapperRef = useRef<HTMLDivElement>(null);
+
 
     useGSAP(() => {
+        if (!landingRef.current) return;
+
+        const tl = gsap.timeline({
+            delay: 5.2,
+            defaults: {
+                ease: "power4.out",
+                duration: 1.1
+            }
+        });
+
         SplitText.create(paraRef.current!, {
             type: "lines",
             mask: "lines",
             linesClass: styles.textLine,
             autoSplit: true,
             onSplit: (self) => {
-                return gsap.from(self.lines, {
-                    delay: 5.5,
+                return tl.from(self.lines, {
                     yPercent: -110,
                     duration: 1,
                     ease: "power4.out",
@@ -36,12 +50,39 @@ export default function Landing() {
             }
         });
 
-        gsap.fromTo(paraWrapperRef.current, {
-            yPercent: 40
-        },
-            {
-                yPercent: -40, ease: "none"
-        })
+        tl.from(locationRef.current, {
+            y: 35,
+            autoAlpha: 0,
+            duration: 1,
+            ease: "power3.out",
+        }, "-=0.7")
+
+            .from(featuredBlockRef.current, {
+                y: 35,
+                autoAlpha: 0,
+                duration: 1,
+                stagger: 0.12,
+                ease: "power3.out",
+            }, "-=0.8")
+
+            .from(yearDisplayRef.current, {
+                y: 35,
+                autoAlpha: 0,
+                duration: 1.2,
+                ease: "power3.out",
+            },"-=0.8");
+
+        if (paraWrapperRef.current) {
+            gsap.fromTo(paraWrapperRef.current,
+                {
+                    yPercent: 40
+                },
+                {
+                    yPercent: -40, ease: "none"
+                });
+        }
+
+
     }, { scope: landingRef });
 
     return (
@@ -64,7 +105,7 @@ export default function Landing() {
             </div>
 
             <footer className={styles.footer}>
-                <div className={styles.locationBox}>
+                <div className={styles.locationBox} ref={locationRef}>
                     <div className={styles.barcode}>
                         <svg width="123" height="30" viewBox="0 0 123 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                             <mask id="mask0_1_30" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="123" height="30">
@@ -92,21 +133,21 @@ export default function Landing() {
                     </div>
                 </div>
 
-                <div className={styles.featureBlock}>
+                <div className={styles.featureBlock} ref={featuredBlockRef}>
                     <h3>DESIRE</h3>
                     <p>
                         SPARK DESIRE WITH STILETTOS THAT EXUDE CONFIDENCE AND ALLURE IN EVERY STEP
                     </p>
                 </div>
 
-                <div className={styles.featureBlock}>
+                <div className={styles.featureBlock} ref={featuredBlockRef}>
                     <h3>EXCLUSIVITY</h3>
                     <p>
                         UNVEIL EXCLUSIVITY, TAILORED FOR WOMEN WHO SEEK RARE ELEGANCE IN EVERY STEP.
                     </p>
                 </div>
 
-                <div className={styles.yearDisplay}>
+                <div className={styles.yearDisplay} ref={yearDisplayRef}>
                     <span className={styles.century}>{century}</span>
                     <div className={styles.decade}>
                         <span className={styles.slash}>/</span>
