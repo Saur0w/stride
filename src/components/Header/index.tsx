@@ -6,10 +6,15 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { SplitText } from "gsap/SplitText";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
 export default function Header() {
+    const pathname = usePathname();
+    const isHome = pathname === "/";
+    const isProductsPage = pathname === "/products" || pathname?.startsWith("/products");
+
     const headerRef = useRef<HTMLHeadElement>(null);
     const strideRef = useRef<HTMLSpanElement>(null);
     const navRef = useRef<HTMLElement>(null);
@@ -17,36 +22,40 @@ export default function Header() {
 
     useGSAP(
         () => {
-            const logoSplit = SplitText.create(strideRef.current!, {
-                type: "chars",
-                mask: "chars",
-                maskClass: styles.logoMask,
-            });
+            if (strideRef.current) {
+                const logoSplit = SplitText.create(strideRef.current, {
+                    type: "chars",
+                    mask: "chars",
+                    maskClass: styles.logoMask,
+                });
 
-            gsap.from(logoSplit.chars, {
-                delay: 7,
-                yPercent: 110,
-                duration: 1,
-                ease: "power4.out",
-                stagger: 0.045,
-            });
+                gsap.from(logoSplit.chars, {
+                    delay: 7,
+                    yPercent: 110,
+                    duration: 1,
+                    ease: "power4.out",
+                    stagger: 0.045,
+                });
+            }
 
             const navTexts = gsap.utils.toArray<HTMLElement>(
                 navRef.current?.querySelectorAll(`.${styles.navText}`) ?? []
             );
 
-            const navSplit = SplitText.create(navTexts, {
-                type: "words",
-                mask: "words",
-            });
+            if (navTexts.length > 0) {
+                const navSplit = SplitText.create(navTexts, {
+                    type: "words",
+                    mask: "words",
+                });
 
-            gsap.from(navSplit.words, {
-                delay: 7.5,
-                yPercent: -110,
-                duration: 1,
-                ease: "power4.out",
-                stagger: 0.045,
-            });
+                gsap.from(navSplit.words, {
+                    delay: isHome ? 7.5 : 0.2,
+                    yPercent: -110,
+                    duration: 1,
+                    ease: "power4.out",
+                    stagger: 0.045,
+                });
+            }
 
             const navLinks = navRef.current?.querySelectorAll("a");
 
@@ -80,33 +89,40 @@ export default function Header() {
                 link.addEventListener("mouseleave", onMouseLeave);
             });
 
-            const seasonSplit = SplitText.create(seasonSpansRef.current!, {
-                type: "words",
-                mask: "words",
-            });
+            if (seasonSpansRef.current.length > 0) {
+                const seasonSplit = SplitText.create(seasonSpansRef.current, {
+                    type: "words",
+                    mask: "words",
+                });
 
-            gsap.from(seasonSplit.words, {
-                delay: 7.5,
-                yPercent: 110,
-                duration: 1,
-                ease: "power4.out",
-                stagger: 0.045,
-            });
+                gsap.from(seasonSplit.words, {
+                    delay: isHome ? 7.5 : 0.2,
+                    yPercent: 110,
+                    duration: 1,
+                    ease: "power4.out",
+                    stagger: 0.045,
+                });
+            }
         },
-        { scope: headerRef }
+        { scope: headerRef, dependencies: [pathname] }
     );
 
     return (
-        <header className={styles.header} ref={headerRef}>
+        <header
+            className={`${styles.header} ${isProductsPage ? styles.darkHeader : ""}`}
+            ref={headerRef}
+        >
             <div className={styles.logoWrapper}>
-                <Link href="/" className={styles.logo}>
-                    <span ref={strideRef}>STRIDE</span>
-                    <span className={styles.copyright}>©</span>
-                </Link>
+                {isHome && (
+                    <Link href="/" className={styles.logo}>
+                        <span ref={strideRef}>STRIDE</span>
+                        <span className={styles.copyright}>©</span>
+                    </Link>
+                )}
             </div>
 
             <div className={styles.rightCol}>
-                <nav className={styles.nav} ref={navRef} style={{ viewTransitionName: "navbar"}}>
+                <nav className={styles.nav} ref={navRef} style={{ viewTransitionName: "navbar" }}>
                     <Link href="/">
                         <span className={styles.navText}>HOME</span>
                         <span className={styles.underline}></span>

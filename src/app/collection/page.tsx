@@ -39,6 +39,7 @@ export default function Collection() {
                 });
 
                 gsap.from(headingSplit.chars, {
+                    delay: 1,
                     yPercent: 120,
                     duration: 1.1,
                     ease: "power4.out",
@@ -47,14 +48,19 @@ export default function Collection() {
             }
 
             if (tagsRef.current) {
-                const items = tagsRef.current.querySelectorAll(`.${styles.tagItem}`);
-                gsap.from(items, {
-                    opacity: 0,
-                    y: 15,
-                    duration: 0.8,
+                const allElements = tagsRef.current.querySelectorAll(`.${styles.tagItem} span`);
+
+                const tagsSplit = SplitText.create(allElements, {
+                    type: "words",
+                    mask: "words",
+                });
+
+                gsap.from(tagsSplit.words, {
+                    yPercent: 115,
+                    duration: 0.9,
                     ease: "power3.out",
-                    stagger: 0.04,
-                    delay: 0.2,
+                    stagger: 0.02,
+                    delay: 1,
                 });
             }
 
@@ -94,13 +100,13 @@ export default function Collection() {
                     <div className={styles.tagsGrid} ref={tagsRef}>
                         {COLLECTION_TAGS.map((tag, index) => (
                             <span key={index} className={styles.tagItem}>
-                <span className={tag.italic ? styles.italicText : styles.tagText}>
-                  {tag.text}
-                </span>
+                                <span className={tag.italic ? styles.italicText : styles.tagText}>
+                                    {tag.text}
+                                </span>
                                 {index < COLLECTION_TAGS.length - 1 && (
                                     <span className={styles.slash}>/</span>
                                 )}
-              </span>
+                            </span>
                         ))}
                     </div>
 

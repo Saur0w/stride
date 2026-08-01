@@ -35,37 +35,50 @@ export default function Products() {
         () => {
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+            // Start with a small delay so header has time to animate in
+            tl.delay(0.1);
+
             tl.from(`.${styles.thumb}`, {
                 opacity: 0,
-                x: -20,
-                stagger: 0.08,
+                y: 30,
+                stagger: 0.1,
                 duration: 0.8,
+                ease: "power4.out",
             })
                 .from(
                     mainImageRef.current,
                     {
+                        clipPath: "inset(100% 0% 0% 0%)",
+                        scale: 1.1,
                         opacity: 0,
-                        scale: 0.96,
-                        duration: 1,
+                        duration: 1.4,
+                        ease: "power4.inOut",
                     },
                     "-=0.6"
                 );
 
             if (titleRef.current) {
+                // To get a true "masked" reveal, we split into words and chars.
+                // We make the words act as hidden masks, and animate the chars inside them!
                 const titleSplit = SplitText.create(titleRef.current, {
-                    type: "chars",
+                    type: "words,chars",
+                });
+
+                gsap.set(titleSplit.words, { 
+                    overflow: "hidden", 
+                    display: "inline-block", 
+                    verticalAlign: "bottom" 
                 });
 
                 tl.from(
                     titleSplit.chars,
                     {
                         yPercent: 120,
-                        opacity: 0,
-                        duration: 0.8,
+                        duration: 0.85,
                         ease: "power4.out",
-                        stagger: 0.02,
+                        stagger: 0.015,
                     },
-                    "-=0.8"
+                    "-=0.9"
                 );
             }
 
@@ -91,8 +104,8 @@ export default function Products() {
         if (mainImageRef.current) {
             gsap.fromTo(
                 mainImageRef.current,
-                { opacity: 0.4 },
-                { opacity: 1, duration: 0.4, ease: "power2.out" }
+                { clipPath: "inset(100% 0% 0% 0%)", scale: 1.05 },
+                { clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 0.8, ease: "power3.inOut" }
             );
         }
     };
