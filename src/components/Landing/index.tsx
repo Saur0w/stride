@@ -41,13 +41,11 @@ export default function Landing() {
 
         tl.fromTo(imageWrapperRef.current, {
             yPercent: 100,
-            opacity: 0
         }, {
             yPercent: 0,
-            opacity: 1,
-            duration: 1.6,
+            duration: 1.2,
             ease: "power4.out",
-        }, "-=0.5");
+        }, "-=0.4");
 
         tl.fromTo(imageWrapperRef.current, {
             clipPath: "inset(36% 40% 36% 40%)",

@@ -62,9 +62,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.15rem;
+  gap: 0.25rem;
 
   a {
+    position: relative;
+    display: inline-block;
     font-family: "PP Neue Montreal", serif;
     font-size: 18px;
     font-weight: 350;
@@ -73,11 +75,28 @@
     color: #FDEBDD;
     text-decoration: none;
     opacity: 0.85;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease;
     line-height: 1.2;
+    padding-bottom: 2px;
 
     &:hover {
       opacity: 1;
+    }
+
+    .navText {
+      display: inline-block;
+    }
+
+    .underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #FDEBDD;
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
     }
   }
 }

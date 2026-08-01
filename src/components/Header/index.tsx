@@ -10,59 +10,91 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(SplitText, useGSAP);
 
 export default function Header() {
-    const headerRef  = useRef<HTMLHeadElement>(null);
-    const strideRef  = useRef<HTMLSpanElement>(null);
+    const headerRef = useRef<HTMLHeadElement>(null);
+    const strideRef = useRef<HTMLSpanElement>(null);
     const navRef = useRef<HTMLElement>(null);
     const seasonSpansRef = useRef<HTMLSpanElement[]>([]);
 
-    useGSAP(() => {
-        const logoSplit = SplitText.create(strideRef.current!, {
-            type: "chars",
-            mask: "chars",
-            maskClass: styles.logoMask,
-        });
+    useGSAP(
+        () => {
+            const logoSplit = SplitText.create(strideRef.current!, {
+                type: "chars",
+                mask: "chars",
+                maskClass: styles.logoMask,
+            });
 
-        gsap.from(logoSplit.chars, {
-            delay: 7,
-            yPercent: 110,
-            duration: 1,
-            ease: "power4.out",
-            stagger: 0.045,
-        });
+            gsap.from(logoSplit.chars, {
+                delay: 7,
+                yPercent: 110,
+                duration: 1,
+                ease: "power4.out",
+                stagger: 0.045,
+            });
 
-        const navLinks = gsap.utils.toArray<HTMLAnchorElement>(
-            navRef.current?.querySelectorAll("a") ?? []
-        );
+            const navTexts = gsap.utils.toArray<HTMLElement>(
+                navRef.current?.querySelectorAll(`.${styles.navText}`) ?? []
+            );
 
-        const navSplit = SplitText.create(navLinks, {
-            type: "words",
-            mask: "words",
-        });
+            const navSplit = SplitText.create(navTexts, {
+                type: "words",
+                mask: "words",
+            });
 
-        gsap.from(navSplit.words, {
-            delay: 7.5,
-            yPercent: -110,
-            duration: 1,
-            ease: "power4.out",
-            stagger: 0.045,
-        });
+            gsap.from(navSplit.words, {
+                delay: 7.5,
+                yPercent: -110,
+                duration: 1,
+                ease: "power4.out",
+                stagger: 0.045,
+            });
 
-        const seasonSplit = SplitText.create(seasonSpansRef.current!, {
-            type: "words",
-            mask: "words",
-        });
+            const navLinks = navRef.current?.querySelectorAll("a");
 
-        gsap.from(seasonSplit.words, {
-            delay: 7.5,
-            yPercent: 110,
-            duration: 1,
-            ease: "power4.out",
-            stagger: 0.045,
-        });
+            navLinks?.forEach((link) => {
+                const underline = link.querySelector(
+                    `.${styles.underline}`
+                ) as HTMLElement;
+                if (!underline) return;
 
+                const onMouseEnter = () => {
+                    gsap.killTweensOf(underline);
+                    gsap.set(underline, { transformOrigin: "left center" });
+                    gsap.to(underline, {
+                        scaleX: 1,
+                        duration: 0.4,
+                        ease: "power3.out",
+                    });
+                };
 
+                const onMouseLeave = () => {
+                    gsap.killTweensOf(underline);
+                    gsap.set(underline, { transformOrigin: "right center" });
+                    gsap.to(underline, {
+                        scaleX: 0,
+                        duration: 0.4,
+                        ease: "power3.inOut",
+                    });
+                };
 
-    }, { scope: headerRef });
+                link.addEventListener("mouseenter", onMouseEnter);
+                link.addEventListener("mouseleave", onMouseLeave);
+            });
+
+            const seasonSplit = SplitText.create(seasonSpansRef.current!, {
+                type: "words",
+                mask: "words",
+            });
+
+            gsap.from(seasonSplit.words, {
+                delay: 7.5,
+                yPercent: 110,
+                duration: 1,
+                ease: "power4.out",
+                stagger: 0.045,
+            });
+        },
+        { scope: headerRef }
+    );
 
     return (
         <header className={styles.header} ref={headerRef}>
@@ -75,19 +107,39 @@ export default function Header() {
 
             <div className={styles.rightCol}>
                 <nav className={styles.nav} ref={navRef}>
-                    <Link href="/">NEW</Link>
-                    <Link href="/">SHOP</Link>
-                    <Link href="/">BESTSELLERS</Link>
-                    <Link href="/">COLLECTIONS</Link>
+                    <Link href="/">
+                        <span className={styles.navText}>NEW</span>
+                        <span className={styles.underline}></span>
+                    </Link>
+                    <Link href="/">
+                        <span className={styles.navText}>SHOP</span>
+                        <span className={styles.underline}></span>
+                    </Link>
+                    <Link href="/">
+                        <span className={styles.navText}>BESTSELLERS</span>
+                        <span className={styles.underline}></span>
+                    </Link>
+                    <Link href="/collection">
+                        <span className={styles.navText}>COLLECTIONS</span>
+                        <span className={styles.underline}></span>
+                    </Link>
                 </nav>
 
                 <div className={styles.season}>
-                    <span ref={(el) => { if (el) seasonSpansRef.current[0] = el; }}>
-                        FALL / WINTER
-                    </span>
-                    <span ref={(el) => { if (el) seasonSpansRef.current[1] = el; }}>
-                        2024
-                    </span>
+          <span
+              ref={(el) => {
+                  if (el) seasonSpansRef.current[0] = el;
+              }}
+          >
+            FALL / WINTER
+          </span>
+                    <span
+                        ref={(el) => {
+                            if (el) seasonSpansRef.current[1] = el;
+                        }}
+                    >
+            2024
+          </span>
                 </div>
             </div>
         </header>
