@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Header from "@/components/Header";
 
 const leMurmure = localFont({
   src: "../../public/fonts/Le_Murmure.woff2",
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={leMurmure.variable}>
       <body>
+      <Header />
       {children}
       </body>
     </html>

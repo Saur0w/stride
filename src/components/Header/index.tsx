@@ -106,13 +106,13 @@ export default function Header() {
             </div>
 
             <div className={styles.rightCol}>
-                <nav className={styles.nav} ref={navRef}>
-                    <Link href="/new">
-                        <span className={styles.navText}>NEW</span>
+                <nav className={styles.nav} ref={navRef} style={{ viewTransitionName: "navbar"}}>
+                    <Link href="/">
+                        <span className={styles.navText}>HOME</span>
                         <span className={styles.underline}></span>
                     </Link>
-                    <Link href="/">
-                        <span className={styles.navText}>SHOP</span>
+                    <Link href="/new">
+                        <span className={styles.navText}>NEW</span>
                         <span className={styles.underline}></span>
                     </Link>
                     <Link href="/products">
@@ -126,20 +126,20 @@ export default function Header() {
                 </nav>
 
                 <div className={styles.season}>
-          <span
-              ref={(el) => {
-                  if (el) seasonSpansRef.current[0] = el;
-              }}
-          >
-            FALL / WINTER
-          </span>
+                    <span
+                        ref={(el) => {
+                            if (el) seasonSpansRef.current[0] = el;
+                        }}
+                    >
+                        FALL / WINTER
+                    </span>
                     <span
                         ref={(el) => {
                             if (el) seasonSpansRef.current[1] = el;
                         }}
                     >
-            2024
-          </span>
+                        2024
+                    </span>
                 </div>
             </div>
         </header>

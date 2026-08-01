@@ -3,11 +3,12 @@
 import styles from "./style.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, SplitText);
 
 const PRODUCT_IMAGES = [
     "/images/toe.jpg",
@@ -25,6 +26,7 @@ const COLORS = [
 export default function Products() {
     const containerRef = useRef<HTMLDivElement>(null);
     const mainImageRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
 
     const [activeImage, setActiveImage] = useState(0);
     const [selectedColor, setSelectedColor] = useState(COLORS[0]);
@@ -47,17 +49,37 @@ export default function Products() {
                         duration: 1,
                     },
                     "-=0.6"
-                )
-                .from(
-                    `.${styles.details} > *`,
-                    {
-                        opacity: 0,
-                        y: 20,
-                        stagger: 0.06,
-                        duration: 0.8,
-                    },
-                    "-=0.7"
                 );
+
+            if (titleRef.current) {
+                const titleSplit = SplitText.create(titleRef.current, {
+                    type: "chars",
+                });
+
+                tl.from(
+                    titleSplit.chars,
+                    {
+                        yPercent: 120,
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power4.out",
+                        stagger: 0.02,
+                    },
+                    "-=0.8"
+                );
+            }
+
+            tl.from(
+                `.${styles.details} > *:not(.${styles.title})`,
+                {
+                    opacity: 0,
+                    y: 20,
+                    stagger: 0.06,
+                    duration: 0.8,
+                },
+                "-=0.6"
+            );
+
         },
         { scope: containerRef }
     );
@@ -78,7 +100,6 @@ export default function Products() {
     return (
         <section className={styles.products} ref={containerRef}>
             <div className={styles.container}>
-                {/* LEFT GALLERY: THUMBNAILS */}
                 <div className={styles.thumbnails}>
                     {PRODUCT_IMAGES.map((src, idx) => (
                         <button
@@ -115,7 +136,7 @@ export default function Products() {
                 <div className={styles.details}>
                     <span className={styles.badge}>ONLINE EXCLUSIVE</span>
 
-                    <h1 className={styles.title}>
+                    <h1 className={styles.title} ref={titleRef}>
                         Dazzling Diamond Pointed-Toe Stiletto Heels
                     </h1>
 
@@ -158,7 +179,6 @@ export default function Products() {
                         FREE SHIPPING ON US ORDERS $100+
                     </p>
 
-                    {/* FOOTER LINKS */}
                     <div className={styles.footerLinks}>
                         <Link href="/">DESCRIPTION</Link>
                         <span className={styles.slash}>/</span>

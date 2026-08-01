@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: 80px 1fr 1.1fr;
   gap: 3.5rem;
-  max-width: 1300px;
+  max-width: 1400px;
   width: 100%;
   align-items: start;
 
@@ -98,6 +98,7 @@
   line-height: 0.98;
   letter-spacing: -0.01em;
   margin: 0 0 1rem 0;
+  padding-bottom: 0.2em;
 }
 
 .price {
