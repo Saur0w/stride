@@ -1,0 +1,89 @@
+.newSection {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #141414;
+  padding: 0;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  min-height: 100vh;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    .productImg {
+      transform: scale(1.04);
+    }
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 580px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+
+  .productImg {
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+}
+
+.cardFooter {
+  background-color: #fdebdd;
+  color: #1a1817;
+  padding: 0.8rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: "PP Neue Montreal", monospace, sans-serif;
+  box-sizing: border-box;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  .title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .price {
+    font-size: 0.68rem;
+    font-weight: 400;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+}
+
+.moreColors {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.85;
+}

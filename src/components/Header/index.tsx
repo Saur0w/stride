@@ -107,7 +107,7 @@ export default function Header() {
 
             <div className={styles.rightCol}>
                 <nav className={styles.nav} ref={navRef}>
-                    <Link href="/">
+                    <Link href="/new">
                         <span className={styles.navText}>NEW</span>
                         <span className={styles.underline}></span>
                     </Link>
@@ -115,7 +115,7 @@ export default function Header() {
                         <span className={styles.navText}>SHOP</span>
                         <span className={styles.underline}></span>
                     </Link>
-                    <Link href="/">
+                    <Link href="/products">
                         <span className={styles.navText}>BESTSELLERS</span>
                         <span className={styles.underline}></span>
                     </Link>
